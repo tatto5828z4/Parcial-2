@@ -22,6 +22,8 @@ public class ContenedorPrincipal extends javax.swing.JFrame {
     private MantenimientoSedes ventanaSedes;
     private MantenimientoAulas ventanaAulas;
     private MantenimientoJornadas ventanaJornadas;
+    private AsignacionCursoAlumno ventantaAsignacionA;
+    private AsignacionCursoMaestro ventanaAsignacionM;
     /*private IngresoCliente ventanaCliente;
     private IngresoAutor ventanaAutor;
     private IngresoProducto ventanaProducto;*/
@@ -59,6 +61,7 @@ public class ContenedorPrincipal extends javax.swing.JFrame {
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -160,9 +163,19 @@ public class ContenedorPrincipal extends javax.swing.JFrame {
         jMenu6.setText("Asignaciones");
 
         jMenuItem17.setText("Asignacion Curso Alumno");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem17);
 
         jMenuItem18.setText("Asignacion Curso Maestro");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem18);
 
         jMenuBar1.add(jMenu6);
@@ -171,6 +184,15 @@ public class ContenedorPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu2.setText("Salir");
+
+        jMenuItem11.setText("SALIR DEL SISTEMA");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem11);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -243,6 +265,23 @@ public class ContenedorPrincipal extends javax.swing.JFrame {
         jDesktopPane1.add(ventanaJornadas);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        // TODO add your handling code here:
+        ventantaAsignacionA = new AsignacionCursoAlumno();
+        jDesktopPane1.add(ventantaAsignacionA);
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        // TODO add your handling code here:
+        ventanaAsignacionM = new AsignacionCursoMaestro();
+        jDesktopPane1.add(ventanaAsignacionM);
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -290,6 +329,7 @@ public class ContenedorPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem2;

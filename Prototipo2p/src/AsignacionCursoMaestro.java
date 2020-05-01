@@ -8,6 +8,8 @@
  *
  * @author jorgi
  */
+import java.sql.*;
+import javax.swing.JOptionPane;
 public class AsignacionCursoMaestro extends javax.swing.JInternalFrame {
 
     /**
@@ -26,7 +28,6 @@ public class AsignacionCursoMaestro extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         txt_codjornada = new javax.swing.JTextField();
         txt_codmaestro = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -41,8 +42,14 @@ public class AsignacionCursoMaestro extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         txt_codcurso = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        label_status = new javax.swing.JLabel();
 
-        jButton1.setText("INGRESAR");
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setVisible(true);
 
         txt_codjornada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +83,13 @@ public class AsignacionCursoMaestro extends javax.swing.JInternalFrame {
 
         jLabel3.setText("CODIGO MAESTRO");
 
+        jButton1.setText("Registrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,10 +106,15 @@ public class AsignacionCursoMaestro extends javax.swing.JInternalFrame {
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txt_codcurso))
-                        .addGap(43, 43, 43))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txt_codcurso))
+                                .addGap(43, 43, 43))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label_status)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -109,9 +128,11 @@ public class AsignacionCursoMaestro extends javax.swing.JInternalFrame {
                                     .addComponent(txt_codseccion, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txt_codsede, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1)))
-                            .addComponent(txt_codjornada, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addContainerGap(165, Short.MAX_VALUE))))
+                            .addComponent(txt_codjornada, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(165, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,10 +167,12 @@ public class AsignacionCursoMaestro extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_codmaestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_codmaestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_status))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
 
         pack();
@@ -167,6 +190,34 @@ public class AsignacionCursoMaestro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_codseccionActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Codigo que permite insertar registros en al base de datos
+        try{
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/siu", "root", "jorgito5828H");
+            PreparedStatement pst = cn.prepareStatement("insert into asignacioncursosmastros values(?,?,?,?,?,?,?)");
+
+            pst.setString(1, txt_codcarrera.getText().trim());
+            pst.setString(2, txt_codsede.getText().trim());
+            pst.setString(3, txt_codjornada.getText().trim());
+            pst.setString(4, txt_codseccion.getText().trim());
+            pst.setString(5, txt_codaula.getText().trim());
+            pst.setString(6, txt_codcurso.getText().trim());
+            pst.setString(7, txt_codmaestro.getText().trim());
+            pst.executeUpdate();
+
+            txt_codcarrera.setText("");
+            txt_codsede.setText("");
+            txt_codjornada.setText("");
+            txt_codseccion.setText("");
+            txt_codaula.setText("");
+            txt_codcurso.setText("");
+            txt_codmaestro.setText("");
+            label_status.setText("Registro exitoso.");
+        }catch (Exception e){
+
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -177,6 +228,7 @@ public class AsignacionCursoMaestro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel label_status;
     private javax.swing.JTextField txt_codaula;
     private javax.swing.JTextField txt_codcarrera;
     private javax.swing.JTextField txt_codcurso;
